@@ -29,7 +29,8 @@ app = Flask(__name__)
 
 @app.route('/')
 def index():
-    return render_template('index.html')
+    api_code = api.api_calling()
+    return render_template('index.html', api_code=api_code)
 
 
 # this function will be triggered by index.html
