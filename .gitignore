@@ -7,3 +7,5 @@ env
 */.env/
 __pycache__
 .env/
+.env/lib/python3.10/site-packages/click/__pycache__/
+*.env/lib/python3.10/site-packages/click/__pycache__/

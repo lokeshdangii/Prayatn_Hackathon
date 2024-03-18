@@ -2,11 +2,16 @@
 from flask import Flask, render_template, request, redirect, url_for, send_file
 import mysql.connector
 import mysql.connector
-from .utils import create_table
-from .utils import generate_schema_sql
+
+
+
+from .utils.create_tables import create_table
+from .utils.insert_query import generate_insert_query
+# from .utils import generate_insert_query
 import requests
 from faker import Faker
 from .utils import api
+
 
 
 # Initialize the Faker instance
