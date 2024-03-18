@@ -1,6 +1,6 @@
 import requests
 
-def api_calling(response):
+def api_calling():
 
     # Defining the API endpoint and access key
     url = "http://13.48.136.54:8000/api/api-code/"
