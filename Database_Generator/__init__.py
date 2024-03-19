@@ -1,5 +1,5 @@
 
-from flask import Flask, render_template, request, redirect, url_for, send_file
+from flask import Flask, render_template, request,  send_file
 import mysql.connector
 from .utils.generate_schema import generate_schema_sql
 from .utils.insert_query import generate_insert_query
@@ -7,20 +7,9 @@ from .utils.create_tables import create_table
 # from .utils.insert_query import generate_insert_query
 # from .utils import generate_insert_query
 import requests
-from faker import Faker
 from .utils import api
+from config import db_config
 
-
-
-# Initialize the Faker instance
-fake = Faker()
-
-# Define your MySQL database configuration
-db_config = {
-    'host': 'localhost',
-    'user': 'root',
-    'password': '9644'
-}
 
 app = Flask(__name__)
 
