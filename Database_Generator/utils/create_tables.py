@@ -32,7 +32,7 @@ def create_table(column_detail, table_name):
         column_detail_list.append(s)
 
     # Adding two additional columns for timestamp and temperature
-    column_detail_list.append(['timestamp', 'timestamp'])
+    # column_detail_list.append(['timestamp', 'timestamp'])
         
     # MySQL create table query 
     query = f"create table {table_name} ("
