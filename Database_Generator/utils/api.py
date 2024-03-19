@@ -16,6 +16,6 @@ def api_calling():
 
         # Extract the API code from the response
         api_code = response.json()["api_code"]
-        return f'API code:, {api_code}'
+        return f'{api_code}'
     else:
         return f'Error: {response.status_code}'

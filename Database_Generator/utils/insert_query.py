@@ -10,7 +10,7 @@ openai_api_key = config["openai_api_key"]
 def generate_insert_query(table_name, col_details):
     headers = {"Authorization": f"Bearer {openai_api_key}"}
 
-    instruction = f"write insert query with real life data that doesn't seem generated and looks indian 20 entries for table {table_name} having columns: {col_details} Also make sure that size of each entry for all columns should be strictly according to the size given in round bracket after datatype"
+    instruction = f"write insert query with real life data that doesn't seem generated and looks indian 10 entries for table {table_name} having columns: {col_details} Also make sure that size of each entry for all columns should be strictly according to the size given in round bracket after datatype"
 
     url = "https://api.edenai.run/v2/text/code_generation"
     payload = {
@@ -25,6 +25,8 @@ def generate_insert_query(table_name, col_details):
     response = requests.post(url, json=payload, headers=headers)
 
     result = json.loads(response.text)
+
+    print(result)
 
     generated_text = result['openai']['generated_text']
 

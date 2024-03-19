@@ -1,7 +1,7 @@
 
 from flask import Flask, render_template, request, redirect, url_for, send_file
 import mysql.connector
-
+from .utils.generate_schema import generate_schema_sql
 from .utils.insert_query import generate_insert_query
 from .utils.create_tables import create_table
 # from .utils.insert_query import generate_insert_query
@@ -80,7 +80,7 @@ def table_details(db_name, num_tables):
                 num += 1
 
                 try:
-                    for entry in range(5):
+                    for entry in range(1):
                         insert_query = generate_insert_query(table_name, column_details)
                         print(insert_query)
                         cursor.execute(insert_query)
@@ -94,7 +94,7 @@ def table_details(db_name, num_tables):
             cursor.execute(f"DROP TABLE IF EXISTS {table_name};")
             messages.append( (f'Table {num}', f'{table_name} creation error', err) )
             num += 1
-    
+    cursor.fetchall()
     cursor.close()
     connection.close()
 
