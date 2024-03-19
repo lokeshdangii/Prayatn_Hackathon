@@ -3,17 +3,17 @@ import requests
 import json
 
 
-def generate_insert_query(table_name, col_details, db_name, **new_db_config):
-    # Making connection
-    connection = mysql.connector.connect(**new_db_config)
-    cursor = connection.cursor()
+def generate_insert_query(table_name, col_details):
+    # # Making connection
+    # connection = mysql.connector.connect(**new_db_config)
+    # cursor = connection.cursor()
 
     # # Extract foreign key details.
     # foreign_key = finding_foreign_key(col_details)
     # print(foreign_key)
 
     # Construct instruction based on column details
-    instruction = f"write insert query with 10 entries for table {table_name} having columns: {col_details}"
+    instruction = f"write insert query with 10 entries and insert real life data that doesn't look generated and looks indian for table {table_name} having columns: {col_details}"
 
     # Generate insert query instruction using Eden AI
     generated_instruction = generate_instruction_with_eden_ai(instruction)
@@ -22,6 +22,7 @@ def generate_insert_query(table_name, col_details, db_name, **new_db_config):
     insert_query = generate_insert_query_with_eden_ai(generated_instruction)
 
     # Print the generated query
+    print("printing insert query")
     print(insert_query)
 
     # Return the generated query

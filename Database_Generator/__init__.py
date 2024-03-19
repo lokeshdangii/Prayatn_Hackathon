@@ -1,12 +1,10 @@
 
 from flask import Flask, render_template, request, redirect, url_for, send_file
 import mysql.connector
-import mysql.connector
 
-
-
-from .utils.create_tables import create_table
 from .utils.insert_query import generate_insert_query
+from .utils.create_tables import create_table
+# from .utils.insert_query import generate_insert_query
 # from .utils import generate_insert_query
 import requests
 from faker import Faker
@@ -83,7 +81,8 @@ def table_details(db_name, num_tables):
 
                 try:
                     for entry in range(5):
-                        insert_query = generate_insert_query(table_name, column_details, db_name)
+                        insert_query = generate_insert_query(table_name, column_details)
+                        print(insert_query)
                         cursor.execute(insert_query)
                         connection.commit()
 
