@@ -12,7 +12,7 @@ openai_api_key = config["openai_api_key"]
 def generate_insert_query(table_name, col_details):
     headers = {"Authorization": f"Bearer {openai_api_key}"}
 
-    instruction = f"write insert query with real life data that doesn't seem generated and looks indian 10 entries for table {table_name} having columns: {col_details} Also make sure that size of each entry for all columns should be strictly according to the size given in round bracket after datatype"
+    instruction = f"write insert query with real life data that doesn't seem generated and looks indian 10 entries for table {table_name} having columns: {col_details} also there is additional column timestamp datatype TIMESTAMP and in that column add current time in format '%Y-%m-%d %H:%M:%S' only and don't generate NOW(). Also make sure that size of each entry for all columns should be strictly according to the size given in round bracket after datatype  "
 
     url = "https://api.edenai.run/v2/text/code_generation"
     payload = {
@@ -20,15 +20,13 @@ def generate_insert_query(table_name, col_details):
         "prompt": "",
         "instruction": instruction,
         "temperature": 0.1,
-        "max_tokens": 500,
+        "max_tokens": 2000,
         "fallback_providers": ""
     }
 
     response = requests.post(url, json=payload, headers=headers)
 
     result = json.loads(response.text)
-
-    print(result)
 
     generated_text = result['openai']['generated_text']
 
@@ -45,11 +43,7 @@ def generate_insert_query(table_name, col_details):
     sql_query = sql_query[:end_index]
 
     # Check if the character before "```" is a semicolon, if not, add a semicolon
-    if not re.search(r';```', sql_query):
-        semicolon_index = sql_query.rfind(';')
-        if semicolon_index == -1:
-            semicolon_index = 0
-        sql_query = sql_query[:semicolon_index] + \
-            ';' + sql_query[semicolon_index:]
+    if not sql_query.endswith(";"):
+        sql_query += ";"
 
     return sql_query
