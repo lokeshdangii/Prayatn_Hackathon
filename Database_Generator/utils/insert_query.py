@@ -2,51 +2,17 @@ import mysql.connector
 import requests
 import json
 
+# Load API keys from a JSON configuration file
+with open("config.json") as f:
+    config = json.load(f)
+
+openai_api_key = config["openai_api_key"]
 
 def generate_insert_query(table_name, col_details):
-    # # Making connection
-    # connection = mysql.connector.connect(**new_db_config)
-    # cursor = connection.cursor()
+    headers = {"Authorization": f"Bearer {openai_api_key}"}
 
-    # # Extract foreign key details.
-    # foreign_key = finding_foreign_key(col_details)
-    # print(foreign_key)
+    instruction = f"write insert query with real life data that doesn't seem generated and looks indian 20 entries for table {table_name} having columns: {col_details} Also make sure that size of each entry for all columns should be strictly according to the size given in round bracket after datatype"
 
-    # Construct instruction based on column details
-    instruction = f"write insert query with 10 entries and insert real life data that doesn't look generated and looks indian for table {table_name} having columns: {col_details}"
-
-    # Generate insert query instruction using Eden AI
-    generated_instruction = generate_instruction_with_eden_ai(instruction)
-
-    # Make request to Eden AI to get the insert query
-    insert_query = generate_insert_query_with_eden_ai(generated_instruction)
-
-    # Print the generated query
-    print("printing insert query")
-    print(insert_query)
-
-    # Return the generated query
-    return insert_query
-
-
-def generate_instruction_with_eden_ai(instruction):
-    headers = {
-        "Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNGI2MTNlYWQtNjM4Ni00Y2FjLWFlYTctY2QwOTEyODBmZjdhIiwidHlwZSI6ImFwaV90b2tlbiJ9.49f5_0ZfmIbCaYAnjVTUK3mUiVXpmN8UeN4aAARRcss"
-    }
-    url = "https://api.edenai.run/v1/pretrained/text/generate"
-    payload = {
-        "text": instruction,
-        "model_id": "openai-gpt-3.5-turbo"
-    }
-    response = requests.post(url, headers=headers, json=payload)
-    result = response.json()
-    return result['generated_text']
-
-
-def generate_insert_query_with_eden_ai(instruction):
-    headers = {
-        "Authorization": "Bearer <YOUR_EDEN_AI_API_KEY>"
-    }
     url = "https://api.edenai.run/v2/text/code_generation"
     payload = {
         "providers": "openai",
@@ -56,6 +22,23 @@ def generate_insert_query_with_eden_ai(instruction):
         "max_tokens": 500,
         "fallback_providers": ""
     }
-    response = requests.post(url, headers=headers, json=payload)
+
+    response = requests.post(url, json=payload, headers=headers)
+
     result = json.loads(response.text)
-    return result['openai']['generated_text']
+
+    generated_text = result['openai']['generated_text']
+
+    # Construct instruction based on column details
+
+    # Generate insert query instruction using OpenAI's GPT
+    # generated_instruction = generate_instruction_with_openai_gpt(instruction)
+
+    # Make request to OpenAI to get the insert query
+    sql_query_start_index = generated_text.find("INSERT INTO")
+    sql_query = generated_text[sql_query_start_index:]
+    # insert_query = generate_insert_query_with_openai_gpt(generated_instruction
+    end_index = sql_query.find("```")
+    sql_query = sql_query[:end_index]
+
+    return sql_query
