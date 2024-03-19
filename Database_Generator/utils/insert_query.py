@@ -1,11 +1,13 @@
 import requests
 import json
+import re
 
 # Load API keys from a JSON configuration file
 with open("config.json") as f:
     config = json.load(f)
 
 openai_api_key = config["openai_api_key"]
+
 
 def generate_insert_query(table_name, col_details):
     headers = {"Authorization": f"Bearer {openai_api_key}"}
@@ -41,5 +43,13 @@ def generate_insert_query(table_name, col_details):
     # insert_query = generate_insert_query_with_openai_gpt(generated_instruction
     end_index = sql_query.find("```")
     sql_query = sql_query[:end_index]
+
+    # Check if the character before "```" is a semicolon, if not, add a semicolon
+    if not re.search(r';```', sql_query):
+        semicolon_index = sql_query.rfind(';')
+        if semicolon_index == -1:
+            semicolon_index = 0
+        sql_query = sql_query[:semicolon_index] + \
+            ';' + sql_query[semicolon_index:]
 
     return sql_query
