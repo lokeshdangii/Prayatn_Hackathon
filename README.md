@@ -61,7 +61,7 @@ This project is a data generation and database management system that leverages 
 
 5. Run the application using Flask:
    ```
-   python Database_Generator/__init__.py
+   flask --app Database_Generator/__init__.py run
    ```
 
 6. Access the web interface in your browser at [http://localhost:5000](http://localhost:5000).
