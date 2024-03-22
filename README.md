@@ -71,7 +71,7 @@ This project is a data generation and database management system that leverages 
 1. Open the web interface and provide the database name and number of tables.
 2. For each table, specify column details (name and data type separated by a colon).
 3. Submit the form to create the database schema and populate it with realistic data.
-4. Download the generated database schema in an SQL file format for further use.
+4. Download the generated database schema in an SQL file format for further use. 
 
 ## Contributors
 
