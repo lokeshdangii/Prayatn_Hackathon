@@ -78,4 +78,4 @@ This project is a data generation and database management system that leverages 
 - [Lokesh Dangi](https://github.com/lokeshdangii)
 - [Paritosh Verma](https://github.com/Rockposedon)
 - [Anil-Gehlot](https://github.com/anil-gehlot)
-- [Priyanshi Verma](https://github.com/ps1231)
+- [Priyanshi Soni](https://github.com/ps1231)
