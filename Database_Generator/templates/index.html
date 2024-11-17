@@ -18,11 +18,22 @@
 
             <label for="numTables">Number of Tables:</label>
             <input type="number" id="numTables" name="numTables" placeholder="Enter Number of Tables" required>
+            
+            <label for="dbName">Enter Host:</label>
+            <input type="text" id="hName" name="hName" placeholder="Enter Host Name" required>
+
+            <label for="dbName">Enter User:</label>
+            <input type="text" id="user" name="user" placeholder="Enter User Name" required>
+
+            <label for="dbName">Enter Password:</label>
+            <input type="text" id="pass" name="pass" placeholder="Enter Password" required>
+
+            
 
             <button type="submit">Create Tables</button>
         </form>
 
-        <div class="apiCode"> {{ api_code }}</div>
+       
     </div>
 </body>
 </html>

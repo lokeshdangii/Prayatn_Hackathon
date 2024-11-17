@@ -1,11 +1,13 @@
 from flask import Flask, render_template, request, redirect, url_for, send_file
 import mysql.connector
 import random
-from config import db_config
-
+# from config import db_config
+from config import get_db_config
 
 #  function to generate schema and for download that
-def generate_schema_sql(db_name):
+def generate_schema_sql(db_name,db_host,db_user,db_password):
+    
+    db_config = get_db_config(db_host, db_user, db_password)
     try:
         connection = mysql.connector.connect(**db_config)
         cursor = connection.cursor()

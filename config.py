@@ -1,6 +1,8 @@
 #  Mysql configuration
-db_config = {
-    'host': 'localhost',
-    'user': 'root',
-    'password': '2003'
-}
+# Function to dynamically create db_config based on user input
+def get_db_config(host, user, password):
+    return {
+        'host': host,
+        'user': user,
+        'password': password,
+    }

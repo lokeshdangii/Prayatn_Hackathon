@@ -7,8 +7,10 @@ from .utils.create_tables import create_table
 # from .utils.insert_query import generate_insert_query
 # from .utils import generate_insert_query
 import requests
+import tempfile  # For creating temporary files
+import os
 # from .utils import api
-from config import db_config
+from config import get_db_config
 
 
 app = Flask(__name__)
@@ -24,22 +26,31 @@ def index():
 # this function will be triggered by index.html
 @app.route('/create_tables/', methods=['POST'])
 def create_tables():
-    global db_name 
+    global db_name, db_host, db_user, db_password 
     db_name  = request.form['dbName']
     num_tables = int(request.form['numTables'])
-    return render_template('table.html', db_name=db_name, num_tables=num_tables)
+    
+    db_host = request.form['hName']
+    db_user = request.form['user']
+    db_password = request.form['pass']
+    return render_template('table.html', db_name=db_name, num_tables=num_tables,db_host=db_host, db_user=db_user, db_password=db_password)
 
 
 @app.route('/submit_table_details/<db_name>/<int:num_tables>/', methods=['POST'])
 def table_details(db_name, num_tables):
-
+    
     table_name_list = request.form.getlist('tableName')
     column_details_list = request.form.getlist('columnDetails')
 
     messages = []
 
+    # connection = mysql.connector.connect(**db_config)
+    # cursor = connection.cursor()
+    
+    db_config = get_db_config(db_host, db_user, db_password)
     connection = mysql.connector.connect(**db_config)
     cursor = connection.cursor()
+
 
     # Create database if not exists
     cursor.execute(f"CREATE DATABASE IF NOT EXISTS {db_name}")
@@ -103,10 +114,21 @@ def download_schema(db_name):
 
     if request.method == 'POST':
 
-        schema_sql = generate_schema_sql(db_name)
+        schema_sql = generate_schema_sql(db_name,db_host,db_user,db_password)
 
         # Save the SQL to a file
-        file_path = f"/home/priyanshi/deployment/Prayatn_Hackathon/Database_Generator{db_name}_schema.sql"
+        # file_path = f"/home/priyanshi/deployment/Prayatn_Hackathon/Database_Generator{db_name}_schema.sql"
+        if os.name == 'posix':  # For Linux/macOS
+            download_folder = os.path.expanduser("~/Downloads")
+        elif os.name == 'nt':  # For Windows
+            download_folder = os.path.join(os.environ['USERPROFILE'], 'Downloads')
+        else:
+            # Fallback for other OSes
+            download_folder = '/tmp'  # default to a temp folder if unknown
+
+        # Define the full path for the SQL file
+        file_path = os.path.join(download_folder, f"{db_name}_schema.sql")
+
         with open(file_path, 'w') as file:
             file.write(schema_sql)
 
