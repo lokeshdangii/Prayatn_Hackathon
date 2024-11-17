@@ -2,17 +2,13 @@ from flask import Flask, render_template, request, redirect, url_for, send_file
 import mysql.connector
 from faker import Faker
 import random
-
+from config import db_config
 
 # Initialize the Faker instance
 fake = Faker()
 
 # Define your MySQL database configuration
-db_config = {
-    'host': 'localhost',
-    'user': 'root',
-    'password': '9644'
-}
+
 
 
 # ---------------------------------------------------
