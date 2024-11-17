@@ -11,7 +11,7 @@ fake = Faker()
 db_config = {
     'host': 'localhost',
     'user': 'root',
-    'password': '9644'
+    'password': '2003'
 }
 
 #  function to generate schema and for download that

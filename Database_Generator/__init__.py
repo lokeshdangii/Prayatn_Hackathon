@@ -7,7 +7,7 @@ from .utils.create_tables import create_table
 # from .utils.insert_query import generate_insert_query
 # from .utils import generate_insert_query
 import requests
-from .utils import api
+# from .utils import api
 from config import db_config
 
 
@@ -16,8 +16,9 @@ app = Flask(__name__)
 
 @app.route('/')
 def index():
-    api_code = api.api_calling()
-    return render_template('index.html', api_code=api_code)
+    # api_code = api.api_calling()
+    # return render_template('index.html', api_code=api_code)
+    return render_template('index.html')
 
 
 # this function will be triggered by index.html
@@ -105,7 +106,7 @@ def download_schema(db_name):
         schema_sql = generate_schema_sql(db_name)
 
         # Save the SQL to a file
-        file_path = f"{db_name}_schema.sql"
+        file_path = f"/home/priyanshi/deployment/Prayatn_Hackathon/Database_Generator{db_name}_schema.sql"
         with open(file_path, 'w') as file:
             file.write(schema_sql)
 
