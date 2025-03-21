@@ -1,13 +1,15 @@
 import requests
 import json
 import re
-
+import os
+from dotenv import load_dotenv
 # Load API keys from a JSON configuration file
 # with open("config.json") as f:
 #     config = json.load(f)
 
 # openai_api_key = config["openai_api_key"]
 
+load_dotenv()
 
 def generate_insert_query(table_name, col_details):
     # headers = {"Authorization": f"Bearer {openai_api_key}"}

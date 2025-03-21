@@ -16,10 +16,15 @@ __pycache__/
 .env
 .env/
 *.env
+**/.env/
+*/.env/
+
 .env/lib/python*/site-packages/click/__pycache__/
 # Ignore all .so files
-*.so
-**/*.so
+# Ignore the 'so' folder in any directory
+so/
+**/so/
+*/so/
 
 # Ignore sensitive config files
 Database_Generator/config.json
