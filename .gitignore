@@ -1,13 +1,30 @@
-**/__pycache__/
-env
-^\.env\/$
-*env
-.env
+# Ignore virtual environment folders
+venv/
+env/
+*/venv/
 */env/
-/env/
-*/.env/
-__pycache__
+
+# Ignore compiled Python files
+__pycache__/
+*.pyc
+*.pyo
+
+# Ignore shared object files
+*.so
+
+# Ignore environment configuration files
+.env
 .env/
-.env/lib/python3.10/site-packages/click/__pycache__/
-*.env/lib/python3.10/site-packages/click/__pycache__/
+*.env
+**/.env/
+*/.env/
+
+.env/lib/python*/site-packages/click/__pycache__/
+# Ignore all .so files
+# Ignore the 'so' folder in any directory
+so/
+**/so/
+*/so/
+
+# Ignore sensitive config files
 Database_Generator/config.json

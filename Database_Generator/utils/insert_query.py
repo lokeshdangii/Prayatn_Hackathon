@@ -1,18 +1,19 @@
 import requests
 import json
 import re
-
+import os
+from dotenv import load_dotenv
 # Load API keys from a JSON configuration file
 # with open("config.json") as f:
 #     config = json.load(f)
 
 # openai_api_key = config["openai_api_key"]
 
+load_dotenv()
 
 def generate_insert_query(table_name, col_details):
     # headers = {"Authorization": f"Bearer {openai_api_key}"}
-    headers = {"Authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiNGI2MTNlYWQtNjM4Ni00Y2FjLWFlYTctY2QwOTEyODBmZjdhIiwidHlwZSI6ImFwaV90b2tlbiJ9.49f5_0ZfmIbCaYAnjVTUK3mUiVXpmN8UeN4aAARRcss"}
-    
+    headers = {"Authorization": f"Bearer {os.getenv('API_TOKEN')}"}    
 
     instruction = f"write insert query with real life data that doesn't seem generated and looks indian 10 entries for table {table_name} having columns: {col_details} also there is additional column timestamp datatype TIMESTAMP and in that column add current time in format '%Y-%m-%d %H:%M:%S' only and don't generate NOW(). Also make sure that size of each entry for all columns should be strictly according to the size given in round bracket after datatype  "
 
